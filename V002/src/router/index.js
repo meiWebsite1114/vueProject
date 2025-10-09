@@ -1,6 +1,10 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import NewsView from "../views/NewsView.vue";
-import DetailView from "../views/DetailView.vue";
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+} from "vue-router";
+import PostListView from "../views/PostListView.vue";
+import PostDetailView from "../views/PostDetailView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const router = createRouter({
@@ -8,13 +12,13 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "News",
-      component: NewsView,
+      name: "PostList",
+      component: PostListView,
     },
     {
-      path: "/detail/:id",
-      name: "Detail",
-      component: DetailView,
+      path: "/posts/:id",
+      name: "PostDetail",
+      component: PostDetailView,
     },
     {
       path: "/:pathMatch(.*)*",

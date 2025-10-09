@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2e345a;
+  --color-secondary: #505a9e;
+  --color-btn-delete: #f56f6f;
+}
