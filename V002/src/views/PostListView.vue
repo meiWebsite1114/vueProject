@@ -6,53 +6,60 @@ import { useRouter } from "vue-router";
 const store = usePostStore();
 const router = useRouter();
 
-const newTitle = ref("");
-const newContent = ref("");
-const editId = ref(null);
+const postField = ref({
+  title: '',
+  content: '',
+})
 
 const addHandler = () => {
-  if (!newTitle.value || !newContent.value) return;
-  store.addPost({ title: newTitle.value, content: newContent.value });
-  newTitle.value = "";
-  newContent.value = "";
+  if (!postField.value.title || !postField.value.content) {
+    alert('請輸入資料')
+    return
+  };
+  store.addPost(postField.value);
+  postField.value.title = "";
+  postField.value.content = "";
 };
 
-const editHandler = (post) => {
-  editId.value = post.id
-  newTitle.value = post.title
-  newContent.value = post.content
-}
+const editHandler = ({ id, title, content }) => {
+  postField.value = {
+    id,
+    title,
+    content
+  }
+};
 
 const cancelHandler = () => {
-  editId.value = null
-  newTitle.value = "";
-  newContent.value = "";
+  postField.value.id = null
+  postField.value.title = "";
+  postField.value.content = "";
 }
 
 const updateHandler = () => {
-  if (!newTitle.value || !newContent.value) return;
-  store.updatePost(editId.value, {
-    id: editId.value,
-    title: newTitle.value,
-    content: newContent.value
-  })
+  if (!postField.value.title || !postField.value.content) {
+    alert('請輸入資料')
+    return
+  };
+  store.updatePost(postField.value.id, postField.value);
 
-  editId.value = null
-  newTitle.value = "";
-  newContent.value = "";
-}
+  postField.value.id = null;
+  postField.value.title = "";
+  postField.value.content = "";
+};
 
 onMounted(() => {
   store.fetchPosts();
 });
+
 </script>
 <template>
   <div class="max-w-3xl mx-auto mt-5 p-4">
     <div class="box">
-      <input v-model="newTitle" type="text" placeholder="標題" class="border border-primary rounded-md w-full h-12 p-4" />
-      <textarea v-model="newContent" name="" id="" placeholder="內容"
+      <input v-model="postField.title" type="text" placeholder="標題"
+        class="border border-primary rounded-md w-full h-12 p-4" />
+      <textarea v-model="postField.content" name="" id="" placeholder="內容"
         class="border border-primary rounded-md w-full h-50 p-4 mt-4"></textarea>
-      <button v-if="!editId" @click="addHandler" type="button"
+      <button v-if="!postField.id" @click="addHandler" type="button"
         class="bg-primary w-25 h-10 rounded-md text-white mt-4 text-lg cursor-pointer block mx-auto">
         新增
       </button>
