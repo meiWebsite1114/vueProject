@@ -7,6 +7,8 @@ export const useShopStore = defineStore("shop", () => {
   const products = ref(productsData);
   const favorites = ref(JSON.parse(localStorage.getItem("favorites")) || []);
   const cart = ref(JSON.parse(localStorage.getItem("cart")) || []);
+  const tabs = ["全部", "眼唇保養", "肌膚保養"];
+  const activeTab = ref("全部");
 
   const toggleFavorite = (product) => {
     const index = favorites.value.findIndex((item) => item.id === product.id);
@@ -59,6 +61,11 @@ export const useShopStore = defineStore("shop", () => {
     cart.value.reduce((sum, item) => sum + item.quantity, 0)
   );
 
+  const filteredProducts = computed(() => {
+    if (activeTab.value === "全部") return products.value;
+    return products.value.filter((p) => p.category === activeTab.value);
+  });
+
   watch(
     favorites,
     (newVal) => {
@@ -88,5 +95,8 @@ export const useShopStore = defineStore("shop", () => {
     updateQuantity,
     cartCount,
     toast,
+    tabs,
+    activeTab,
+    filteredProducts,
   };
 });

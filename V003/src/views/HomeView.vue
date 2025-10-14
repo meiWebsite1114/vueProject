@@ -9,9 +9,16 @@ const store = useShopStore()
 
 <template>
   <HeroSection />
-  <div class="container mx-auto p-4">
-    <div class="card_lists grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
-      <ProductCard v-for="p in store.products" :key="p.id" :product="p" />
+  <div class="container mx-auto p-8">
+    <div class=" flex items-center justify-center gap-4">
+      <button type="button" v-for="tab in store.tabs" :key="index" @click="store.activeTab = tab"
+        class="w-30 h-10 border border-seconary text-seconary text-center content-center rounded-md cursor-pointer"
+        :class="tab === store.activeTab ? 'bg-seconary text-white' : ''">{{
+          tab }}
+      </button>
+    </div>
+    <div class="card_lists grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+      <ProductCard v-for="p in store.filteredProducts" :key="p.id" :product="p" />
     </div>
   </div>
 

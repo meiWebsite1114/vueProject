@@ -1,5 +1,5 @@
 <script setup>
-const bannerPics = ref(["b01.jpg", "b02.jpg", "b03.jpg"]);
+const bannerPics = ["b01.jpg", "b02.jpg", "b03.jpg"];
 </script>
 
 <template>
