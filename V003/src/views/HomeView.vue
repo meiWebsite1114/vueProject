@@ -11,7 +11,7 @@ const store = useShopStore()
   <HeroSection />
   <div class="container mx-auto p-8">
     <div class=" flex items-center justify-center gap-4">
-      <button type="button" v-for="tab in store.tabs" :key="index" @click="store.activeTab = tab"
+      <button type="button" v-for="tab in store.tabs" :key="tab" @click="store.activeTab = tab"
         class="w-30 h-10 border border-seconary text-seconary text-center content-center rounded-md cursor-pointer"
         :class="tab === store.activeTab ? 'bg-seconary text-white' : ''">{{
           tab }}
