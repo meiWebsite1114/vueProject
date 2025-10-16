@@ -30,7 +30,7 @@ const editHandler = ({ id, title, content }) => {
 };
 
 const cancelHandler = () => {
-  postField.value.id = null
+  delete postField.value.id
   postField.value.title = "";
   postField.value.content = "";
 }
@@ -42,7 +42,7 @@ const updateHandler = () => {
   };
   store.updatePost(postField.value.id, postField.value);
 
-  postField.value.id = null;
+  delete postField.value.id
   postField.value.title = "";
   postField.value.content = "";
 };

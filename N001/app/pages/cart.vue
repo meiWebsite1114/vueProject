@@ -19,7 +19,7 @@ const store = useStore();
         </NuxtLink>
         <div class="cart_bottom mt-4 flex flex-col md:flex-row items-center gap-10">
           <h4 class="text-lg">${{ item.price }}</h4>
-          <button @click="store.removeFromCart(index)" type="button"
+          <button @click="store.removeFromCart(item.id)" type="button"
             class="px-4 h-10 bg-red-300 rounded-md cursor-pointer">
             移除
           </button>

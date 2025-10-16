@@ -10,13 +10,18 @@ onMounted(() => {
 </script>
 <template>
   <section class="py-10 px-4">
-    <h2 class="text-center text-2xl font-bold border-b w-[95%] mx-auto pb-4">
-      全部商品
+    <div class=" flex items-center justify-center gap-3 flex-wrap md:flex-nowrap">
+      <button v-for="tab in store.tabs" :key="tab" @click="store.activeTab = tab" type="button"
+        class=" bg-third text-white w-40 h-10 rounded-md cursor-pointer"
+        :class="store.activeTab === tab ? 'outline outline-third outline-offset-3' : ''">{{ tab }}</button>
+    </div>
+    <h2 class="text-center text-2xl font-bold border-b w-[95%] mx-auto pb-4 mt-10">
+      {{ store.activeTab }}
     </h2>
     <Loading v-if="store.loading" />
     <div v-else class="container mx-auto mt-10">
       <div class="grid grid-cols-2 md:grid-cols-4 justify-center gap-4">
-        <ProductCard v-for="item in store.products" :key="item.id" :product="item" />
+        <ProductCard v-for="item in store.filteredProducts" :key="item.id" :product="item" />
       </div>
     </div>
   </section>

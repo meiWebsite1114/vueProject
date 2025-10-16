@@ -6,12 +6,19 @@ export const useStore = defineStore("store", () => {
   const products = ref([]);
   const product = ref({});
   const cartItems = ref([]);
+  const tabs = ref(["all"]);
+  const activeTab = ref("all");
   const loading = ref(true);
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("https://fakestoreapi.com/products");
-      products.value = res.data;
+      const [productRes, categoryRes] = await Promise.all([
+        axios.get("https://fakestoreapi.com/products"),
+        axios.get("https://fakestoreapi.com/products/categories"),
+      ]);
+
+      products.value = productRes.data;
+      tabs.value = ["all", ...categoryRes.data];
     } catch (err) {
       console.error(err);
     } finally {
@@ -36,8 +43,9 @@ export const useStore = defineStore("store", () => {
     cartItems.value.push(p);
   };
 
-  const removeFromCart = (index) => {
-    cartItems.value.splice(index, 1);
+  const removeFromCart = (id) => {
+    const removeIndex = cartItems.value.findIndex((item) => item.id === id);
+    cartItems.value.splice(removeIndex, 1);
   };
 
   const specialProducts = computed(() => products.value.slice(0, 8));
@@ -47,6 +55,11 @@ export const useStore = defineStore("store", () => {
   );
 
   const totalItems = computed(() => cartItems.value.length);
+
+  const filteredProducts = computed(() => {
+    if (activeTab.value === "all") return products.value;
+    return products.value.filter((item) => item.category === activeTab.value);
+  });
 
   return {
     products,
@@ -60,5 +73,8 @@ export const useStore = defineStore("store", () => {
     removeFromCart,
     totalPrice,
     totalItems,
+    tabs,
+    activeTab,
+    filteredProducts,
   };
 });
