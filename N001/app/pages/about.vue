@@ -5,7 +5,7 @@
       關於我們
     </h2>
     <div class="container mx-auto text-center mt-10">
-      <p>這是一個使用 Nuxt+Pinia+axios 建構的網站</p>
+      <p>這是一個使用 Nuxt+Pinia+Axios 建構的網站</p>
     </div>
   </section>
 </template>
