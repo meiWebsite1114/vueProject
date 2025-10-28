@@ -44,7 +44,7 @@ const isEyeOpen = ref(false);
     </div>
   </section>
 </template>
-<style type="scss" scoped>
+<style lang="scss" scoped>
 .login_wrap {
   width: 100%;
   background: url(/src/assets/bg.jpg) no-repeat center;
